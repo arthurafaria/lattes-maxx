@@ -1,9 +1,9 @@
 ---
 name: lattes-maxx
-description: Guia o preenchimento, a atualização e a revisão do Currículo Lattes (Plataforma Lattes, CNPq) de estudantes de graduação e pós-graduação. Diz onde cadastrar cada coisa e o que pôr em cada campo — iniciação científica (PIBIC, PIBITI, IC voluntária), monitoria, extensão, estágio, mestrado e doutorado, bolsas CAPES/CNPq/FAPs, grupos de pesquisa do DGP, projetos, artigos, resumos em anais, apresentações, relatórios, software, sites, entrevistas, audiovisual, eventos (participação e organização), orientações e bancas —, escreve o resumo do currículo e revisa a prévia antes do envio ao CNPq. Use sempre que a pessoa mencionar Lattes, currículo Lattes, CNPq, DGP, "onde coloco isso no Lattes", "atualizar o Lattes para edital, seleção ou Sucupira", ou mandar certificados, termos de outorga, prints ou vídeos do Lattes, mesmo sem citar a skill. Também para "Brazilian Lattes CV".
+description: Preenche, atualiza e revisa o Currículo Lattes (CNPq). Invoque sempre que a pessoa mencionar Lattes, CNPq, DGP, Sucupira ou "Brazilian Lattes CV", perguntar onde algo vai no Lattes, ou mandar certificados, termos de outorga, prints ou vídeos do Lattes — mesmo sem citar a skill.
 license: MIT
 metadata:
-  version: "1.1.0"
+  version: "1.1.1"
   language: "pt-BR"
   verified: "2026-10"
   repository: "https://github.com/arthurafaria/lattes-maxx"

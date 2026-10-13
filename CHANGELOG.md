@@ -1,5 +1,9 @@
 # Changelog
 
+## 1.1.1 — 2026-10
+
+- Descrição da skill enxuta: agora diz só quando ela deve ser invocada.
+
 ## 1.1.0 — 2026-10
 
 - A skill virou um arquivo só (`SKILL.md`), autossuficiente para os casos comuns. Referências,
