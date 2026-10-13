@@ -82,6 +82,28 @@ houver (online first); título conforme a carta; ano previsto; periódico/ISSN p
 autores. **Quando publicar, exclua daqui e cadastre em Artigos completos**, senão fica
 duplicado.
 
+**Sem DOI, ou o DOI não é encontrado**: cadastre à mão, no mesmo formulário. Periódico e ISSN
+pela lupa (confira que o ISSN é o da versão certa e **não crie periódico novo** se já existir),
+título como no PDF, ano, volume, fascículo, páginas (ou identificador eletrônico, se for o
+caso), DOI no campo próprio se houver, autores na ordem. Item à mão aceita "Traduções". Copie
+os dados do PDF publicado, não de memória nem de outra base.
+
+**Casos sem regra no manual do CNPq** (diga isso à pessoa; dê a opção mais coerente e peça que
+confirme com o orientador ou o programa, porque programas e áreas variam):
+- **Preprint** (SciELO Preprints, arXiv, SSRN, bioRxiv…): não é artigo publicado nem aceito,
+  então **não** vai em "Artigos completos" nem em "Artigos aceitos". Se o programa ou o edital
+  quiser vê-lo, a opção mais usada é "Outra produção bibliográfica", dizendo no título ou nos
+  detalhes que é preprint e com o link/DOI do servidor. Se o preprint for a versão prévia de um
+  artigo aceito ou publicado, não duplique.
+- **Resenha, ensaio, verbete**: se saiu em revista ou jornal de divulgação, "Texto em jornal ou
+  revista"; se saiu em periódico acadêmico como seção, alguns programas aceitam em "Artigos
+  completos" (confirme); sem veículo, "Outra produção bibliográfica".
+- **Artigo com centenas de autores** (grandes colaborações): a autoria vem do DOI. Confira se a
+  lista veio completa e se o nome da pessoa está ligado ao currículo; se a tela cortar ou
+  travar, peça print. Não encurte a lista nem a reordene.
+- **Artigo traduzido ou publicado em inglês**: título original no campo principal, igual ao
+  publicado; idioma "Inglês". A aba "Traduções" é para o título em inglês de itens em português.
+
 **Livros e capítulos**: "Tipo" — "Livro publicado" (autor) ou "Organização de obra publicada"
 (organizador/editor), ou Capítulo. Natureza (coletânea, anais, catálogo…), título, ano, país,
 idioma, meio; Detalhamento (volumes, páginas, **ISBN**, edição, série, cidade e editora);

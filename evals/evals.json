@@ -4,8 +4,8 @@
     {
       "id": 1,
       "prompt": "oi! sou do 5º período de jornalismo na UFPE e ganhei bolsa PIBIC do CNPq em agosto/2026, com a profa. Helena Duarte, no projeto 'Desinformação em podcasts de saúde'. em outubro apresentei um pôster no Congresso de Iniciação Científica da UFPE e o resumo saiu no caderno de resumos (tem ISBN). também dei uma entrevista pra TV Universitária sobre a pesquisa. nunca mexi no lattes direito, só tenho o cadastro com o ensino médio. me diz o que colocar e onde, campo por campo",
-      "expected_output": "Mapa do que vai onde (graduação em andamento, vínculo Bolsista + atividade P&D, projeto real com CNPq natureza Bolsa, resumo em anais + apresentação/participação, entrevista em Entrevistas/programas na mídia), campos e textos prontos, resumo do currículo, lembrete de Enviar ao CNPq.",
       "files": [],
+      "expected_output": "Mapa do que vai onde (graduação em andamento, vínculo Bolsista + atividade P&D, projeto real com CNPq natureza Bolsa, resumo em anais + apresentação/participação, entrevista em Entrevistas/programas na mídia), campos e textos prontos, resumo do currículo, lembrete de Enviar ao CNPq.",
       "assertions": [
         "IC registrada como vínculo 'Bolsista' em Atuação profissional (e não em Formação complementar)",
         "Recomenda cadastrar o projeto real em Projetos, com a orientadora como coordenadora e CNPq com natureza 'Bolsa'",
@@ -20,8 +20,8 @@
     {
       "id": 2,
       "prompt": "Sou mestranda no PPGCOM da UFMG desde março/2025 com bolsa CAPES, orientadora Profa. Dra. Lúcia Prado. Tenho um artigo aceito na revista Galáxia (recebi a carta de aceite semana passada, ainda sem DOI) e fiz estágio docência em 2025.2 na disciplina Teorias da Comunicação. A secretaria pediu Lattes atualizado até sexta por causa da Sucupira. O que eu preciso cadastrar e como? Coloco o Qualis da revista?",
-      "expected_output": "Mestrado em andamento em Formação com orientadora e bolsa CAPES (curso/orientadora pela lupa), vínculo Bolsista opcional/comum, artigo em Artigos aceitos (mover quando publicar), estágio docência em Atividades › Ensino, Qualis não é campo do Lattes, envio ao CNPq antes do prazo, ORCID/nome em citações.",
       "files": [],
+      "expected_output": "Mestrado em andamento em Formação com orientadora e bolsa CAPES (curso/orientadora pela lupa), vínculo Bolsista opcional/comum, artigo em Artigos aceitos (mover quando publicar), estágio docência em Atividades › Ensino, Qualis não é campo do Lattes, envio ao CNPq antes do prazo, ORCID/nome em citações.",
       "assertions": [
         "Mestrado em andamento em Formação com orientadora e bolsa CAPES ('Com bolsa?')",
         "Artigo vai em 'Artigos aceitos para publicação' e deve ser movido para Artigos completos quando publicado",
@@ -35,10 +35,10 @@
     {
       "id": 3,
       "prompt": "Gerei a prévia do meu Lattes e salvei o HTML (previa_com_erros.html, anexo). Pode revisar antes de eu mandar pro CNPq?",
-      "expected_output": "Revisão priorizada apontando: PIBIC descrito como extensão, frases repetidas e erros no resumo, IC em Formação complementar, graduação sem 'em andamento', laboratório como instituição, grupo como linha de pesquisa, atividades duplicadas, falta de projeto, item sem o nome da pessoa, texto duplicado, http:// repetido; com caminho de correção.",
       "files": [
         "tests/fixtures/previa_com_erros.html"
       ],
+      "expected_output": "Revisão priorizada apontando: PIBIC descrito como extensão, frases repetidas e erros no resumo, IC em Formação complementar, graduação sem 'em andamento', laboratório como instituição, grupo como linha de pesquisa, atividades duplicadas, falta de projeto, item sem o nome da pessoa, texto duplicado, http:// repetido; com caminho de correção.",
       "assertions": [
         "Aponta que PIBIC foi descrito como bolsa de extensão",
         "Aponta IC/PIBIC cadastrada em Formação complementar",
@@ -52,6 +52,95 @@
         "Aponta atividades de Pesquisa e desenvolvimento duplicadas",
         "Orienta digitar o link sem 'http://' (o Lattes acrescenta)",
         "Na correção, evita ordinais «º/ª» que o Lattes apaga"
+      ]
+    },
+    {
+      "id": 4,
+      "prompt": "vou fazer intercâmbio e a universidade pediu o currículo lattes em inglês. como faço isso?",
+      "files": [],
+      "expected_output": "Explica que o Lattes gera a versão em inglês sozinho, com autorização no envio; botão English; títulos e textos dependem da aba Traduções.",
+      "assertions": [
+        "Diz que o Lattes gera a versão em inglês automaticamente, se a pessoa autorizar no envio",
+        "Menciona o botão 'English' no currículo público",
+        "Explica que só rótulos são traduzidos e que títulos e textos precisam da aba 'Traduções'",
+        "Avisa que item cadastrado por DOI não aceita tradução",
+        "Não afirma que o Lattes não traduz o currículo"
+      ]
+    },
+    {
+      "id": 5,
+      "prompt": "meu lattes não abre, aparece \"Falha na autenticação\". já tentei umas 5 vezes",
+      "files": [],
+      "expected_output": "Entrar pelo portal lattes.cnpq.br, sem favorito antigo, com cookies; senha pelo link; bloqueio só o CNPq.",
+      "assertions": [
+        "Aponta entrar pelo portal lattes.cnpq.br › 'Atualizar currículo' em vez de favorito ou link antigo de login",
+        "Menciona cookies ativados",
+        "Orienta 'Esqueceu sua senha?' e avisa que o link vale poucos minutos",
+        "Diz que currículo bloqueado só o CNPq desbloqueia (atendimento@cnpq.br)",
+        "Não pede senha nem CPF"
+      ]
+    },
+    {
+      "id": 6,
+      "prompt": "tenho PIBIC desde ago/2024. renovei em ago/2025 no mesmo projeto e agora em ago/2026 mudei de orientador e de projeto, continuando com PIBIC. como cadastro tudo isso no lattes? faço um vínculo ou três?",
+      "files": [],
+      "expected_output": "Um vínculo Bolsista; atividade e projeto novos para o novo orientador; vigências em Outras informações; diz que não é regra oficial.",
+      "assertions": [
+        "Recomenda um vínculo só (mesmo tipo e programa), não três",
+        "Cria atividade nova (com a nova linha) e projeto novo para o segundo orientador",
+        "Descreve as vigências e a troca em 'Outras informações'",
+        "Diz que a ajuda do CNPq não trata o caso e que é a forma mais coerente",
+        "Cada projeto com o respectivo orientador como coordenador e 'Identificar co-autor'"
+      ]
+    },
+    {
+      "id": 7,
+      "prompt": "recebo auxílio permanência da universidade e também tenho PIBIC. coloco os dois como bolsa no lattes? e a bolsa do PROUNI?",
+      "files": [],
+      "expected_output": "Só o PIBIC entra; auxílio e ProUni em geral não se registram; 'Com bolsa?' de Formação não é para IC.",
+      "assertions": [
+        "Orienta registrar o PIBIC como vínculo Bolsista + atividade + projeto",
+        "Diz que auxílio permanência e ProUni não são bolsa acadêmica e em geral não se registram",
+        "Não marca o PIBIC em 'Com bolsa?' da graduação",
+        "Avisa que o manual do CNPq não trata os auxílios (é recomendação, não regra)"
+      ]
+    },
+    {
+      "id": 8,
+      "prompt": "sou graduanda de psicologia. tenho 3 artigos: um publicado com DOI (somos 4 autores, eu sou a segunda), um aceito mas ainda sem DOI e um preprint no SciELO Preprints. como cadastro cada um no lattes?",
+      "files": [],
+      "expected_output": "Publicado por DOI; aceito em Artigos aceitos; preprint não é artigo publicado nem aceito, sem regra no manual.",
+      "assertions": [
+        "Publicado: Artigos completos pelo DOI (a partir de '10.'), autores na ordem do PDF com a pessoa incluída",
+        "Aceito: Artigos aceitos para publicação, para excluir e recadastrar quando sair",
+        "Diz que o preprint não é artigo publicado nem aceito e não deve entrar em 'Artigos completos' nem em 'aceitos'",
+        "Diz que o manual do CNPq não trata o preprint e manda confirmar com o orientador ou programa",
+        "Evita duplicar se o preprint for a versão prévia de um dos artigos"
+      ]
+    },
+    {
+      "id": 9,
+      "prompt": "sou estudante estrangeiro (colombiano) fazendo graduação na UFRGS e não tenho CPF ainda. consigo criar lattes? como?",
+      "files": [],
+      "expected_output": "Cadastro próprio para estrangeiros, com passaporte; não criar segundo currículo.",
+      "assertions": [
+        "Informa que há cadastro para estrangeiro com dados do passaporte no lugar de CPF e RG",
+        "Menciona o acesso pela opção de e-mail do login para estrangeiros",
+        "Orienta a não criar um segundo Lattes depois de obter o CPF",
+        "Diz que não confirmou a tela atual e pede print se algo estiver diferente"
+      ]
+    },
+    {
+      "id": 10,
+      "prompt": "sou do 7º período de engenharia de computação e nunca tive lattes. fiz IC voluntária com o prof. Marcos desde 2025, desenvolvi um app em Python, ganhei 2º lugar numa maratona de programação e estagiei numa empresa. me diz o que cadastrar e onde",
+      "files": [],
+      "expected_output": "Mapa curto e primeiro formulário; não despeja todos os formulários de uma vez.",
+      "assertions": [
+        "Entrega uma tabela 'item › onde vai'",
+        "Entrega o primeiro formulário completo e pergunta o que falta",
+        "Não despeja todos os formulários numa só resposta",
+        "Explica como criar o Lattes (portal › 'Cadastrar novo currículo'; CPF, nome da mãe, Ensino Médio concluído)",
+        "Escreve o prêmio por extenso ('segundo lugar'), sem 'º'"
       ]
     }
   ]

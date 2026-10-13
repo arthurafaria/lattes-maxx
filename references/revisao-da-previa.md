@@ -15,10 +15,17 @@ página (Cmd/Ctrl + S, "Página da Web, somente HTML") ou imprimir em PDF (Cmd/C
 python3 scripts/revisar_previa.py CAMINHO/DA/PREVIA.html
 ```
 
+No Windows use `python` (ou `py`) no lugar de `python3`. O script também lê `.txt` e PDF (o PDF
+precisa do `pdftotext`; a leitura é aproximada, prefira o HTML). Arquivo que não seja a prévia
+(PDF sem texto, pasta, página qualquer) gera uma mensagem de erro, não um relatório.
+
 O script (só biblioteca padrão, sem internet) lista pontos ERRO / ATENÇÃO / INFO: resumo
 confuso ou repetido, IC em Formação complementar, laboratório como instituição, grupo como
 linha de pesquisa, atividades duplicadas, bolsista sem projeto, item sem o nome da pessoa,
-produções duplicadas, "http://" repetido, «º» perdido, graduação sem situação. São
+produções duplicadas, "http://" repetido, «º» perdido, graduação sem situação, vínculo
+"Atual" com vigência já vencida, monitoria ou estágio com natureza "Outro", artigo "aceito" que
+já traz DOI/volume ou que também está em "completos", submetido cadastrado como aceito e
+preprint cadastrado como artigo. São
 heurísticas: confirme cada ponto lendo o trecho antes de recomendar mudança, e explique em
 linguagem simples. Se não puder executar código, faça a checklist abaixo à mão.
 

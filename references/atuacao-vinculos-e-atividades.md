@@ -76,6 +76,23 @@ desenvolvimento pede linhas de pesquisa.
 Casos sem receita oficial (PIBID, CA, intercâmbio sem título) seguem a lógica
 onde/quem/o quê; diga à pessoa que é a forma mais coerente, não uma regra do CNPq.
 
+## Bolsas: casos frequentes
+
+A ajuda do CNPq só orienta o básico (novo vínculo quando a relação muda; vigências descritas).
+O que segue aplica a lógica onde/quem/o quê; diga à pessoa que é a forma mais coerente.
+
+| Situação | O que fazer |
+|---|---|
+| Duas bolsas ao mesmo tempo (extensão e monitoria, por exemplo) | Um vínculo Bolsista para cada, cada um com a sua atividade. O Lattes não soma nem proíbe; o acúmulo é regra do edital, não do Lattes |
+| Mudou de orientador/projeto e continua com a mesma bolsa (PIBIC) | O vínculo diz *quem* a pessoa é (bolsista PIBIC): continua o mesmo. Faça atividade nova (com a nova linha) e projeto novo; descreva as trocas e vigências em "Outras informações". Novo vínculo só se mudou o tipo (voluntária › bolsista), o programa ou a instituição |
+| Bolsa terminou | Mês de fim no vínculo e na atividade; o projeto é do orientador e continua como está (só marque "Concluído" se ele terminou); resumo no passado. Se ficou como voluntário, vínculo novo "Outro" |
+| Bolsa renovada | Ver acima: um vínculo, vigências em "Outras informações". Revise a vigência a cada renovação: vínculo "Atual" com vigência vencida é inconsistência |
+| Bolsa de FAP (FAPESP, FAPERJ…) | Número do processo e edital em "Outras informações" do vínculo e na descrição do projeto, escrito "processo" (sem "nº", que o Lattes pode apagar). FAP como financiador do projeto, natureza "Bolsa" |
+| PIBITI (tecnológica) | Mesma estrutura da IC; "Bolsista de Iniciação Tecnológica ([programa]/[agência])". Projeto de desenvolvimento se o edital o define assim; o sistema entra como Programa de computador sem registro (titularidade em geral da instituição; sigilo contratual: item "Privado") |
+| PIBIC-EM (ensino médio) | Mesma lógica da IC, com a escola/IF como instituição; sem receita oficial |
+| Auxílio permanência, ProUni, FIES, bolsa-mensalidade | Não são bolsa acadêmica. Em geral não se registram: expõem situação socioeconômica e não dizem nada de formação ou pesquisa. "Com bolsa?" de Formação é para bolsa de fomento do curso. Se o auxílio exige contrapartida (trabalhar num setor, por exemplo), registre a atividade |
+| Orientador não cadastrou o projeto | A pessoa pode cadastrar o projeto real (título oficial do termo ou edital) com o orientador como coordenador e "Identificar co-autor"; peça que ele cadastre o mesmo, com o mesmo título e ano, no Lattes dele |
+
 ## Linhas de pesquisa
 
 - Nascem só da atividade **"Pesquisa e desenvolvimento"**: a linha digitada ali aparece em

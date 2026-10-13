@@ -22,9 +22,9 @@ Cursor, VS Code e outras. Para IAs sem suporte a skills, há uma versão para co
 - **Campo a campo**, com textos prontos para colar (português e inglês).
 - **Lê o que você manda**: termo de outorga, certificado, PDF da publicação, prints e vídeos
   da tela do Lattes.
-- **Revisa a prévia** antes do envio — à mão ou com um script que encontra erros comuns
-  (bolsa descrita errado, laboratório como instituição, grupo como linha de pesquisa, item
-  duplicado, autor faltando…).
+- **Revisa a prévia** antes do envio — à mão ou com um script (HTML, .txt ou PDF) que encontra
+  erros comuns (bolsa descrita errado ou com vigência vencida, laboratório como instituição,
+  grupo como linha de pesquisa, artigo "aceito" que já saiu, item duplicado, autor faltando…).
 - **Cuida da integridade**: autoria igual à do documento publicado, sem inflar papel, de
   acordo com a política de integridade do CNPq (Portaria 2.664/2026).
 - Seção específica para **Comunicação, Artes e Humanidades** (reportagens, entrevistas,
@@ -44,6 +44,8 @@ referências e os scripts ficam aqui no repositório, e não dentro da skill.
 | **Codex, Cursor, Copilot, VS Code, Gemini CLI, OpenCode** | O mesmo comando, trocando `~/.claude/skills` por `~/.agents/skills` |
 | **ChatGPT / Gemini** (contas com Skills) | Skills › Enviar › `lattes-maxx.zip` |
 | **Qualquer agente via GitHub CLI** | `gh skill install arthurafaria/lattes-maxx lattes-maxx --agent <agente> --scope user` |
+
+No Windows, os comandos em Python usam `python` (ou `py`) no lugar de `python3`.
 
 Para a IA conseguir clonar o repositório, ela precisa poder executar comandos e acessar a
 internet (Claude Code, Codex e afins conseguem; em chats na web isso depende do plano e da

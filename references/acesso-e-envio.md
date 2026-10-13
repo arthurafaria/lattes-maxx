@@ -6,9 +6,10 @@ CNPq (2026). "Tela conferida" indica rótulo visto no editor real em outubro de 
 
 ## Sumário
 - Entrar no currículo
-- Criar um currículo novo
+- Criar um currículo novo (inclui estrangeiros sem CPF)
 - Como o editor funciona
 - Salvar não publica: o envio
+- Versão em inglês
 - Prévia antes de enviar
 - Conferir depois do envio
 - Problemas comuns de acesso
@@ -33,6 +34,18 @@ Portal › "Cadastrar novo currículo". O cadastro pede dados pessoais, CPF, nom
 formação concluída** (para quem está na graduação, o Ensino Médio) e, opcionalmente, a
 graduação em andamento só com o ano de início. Depois de concluir, a pessoa precisa
 **enviar** o currículo; ele é publicado em até 24 horas.
+
+**Estrangeiro sem CPF**: o cadastro tem uma entrada própria para estrangeiros
+(`wwws.cnpq.br/cvlattesweb/pkg_cv_estr.inicio`, conforme tutoriais de instituições e o manual
+do CNPq): escolhe-se a nacionalidade e informa-se o **passaporte** (número, emissão, validade e
+país emissor) no lugar de CPF e RG. O acesso depois é pela opção **"e-mail (Servidores do CNPq
+ou Estrangeiros)"** da tela de login. Bolsas e editais costumam exigir CPF mais adiante, então
+vale pedir o CPF e, com ele, falar com o atendimento do CNPq para vinculá-lo ao mesmo currículo
+(não crie um segundo Lattes). Confirme a tela atual: o manual é de 2026 e as telas mudam.
+
+**Quem ainda cursa o Ensino Médio** (PIBIC-EM, por exemplo): o cadastro pede uma formação
+concluída; sem Ensino Médio concluído, o mais provável é usar a formação anterior que a tela
+aceitar. Não vimos essa tela: peça print se algo estiver diferente.
 
 ## Como o editor funciona
 
@@ -77,6 +90,23 @@ graduação em andamento só com o ano de início. Depois de concluir, a pessoa 
 Envie **uma vez, no fim da sessão**: cada envio substitui o anterior. Pode editar e enviar de
 novo quantas vezes quiser depois. Muitos editais (IC, bolsas, seleções) exigem que o currículo
 esteja "atualizado" e "enviado ao CNPq" numa data — o que vale é a data do envio.
+
+## Versão em inglês
+
+O Lattes gera a versão em inglês **sozinho**, com a permissão dada no momento do envio ("Li e
+estou de acordo…"). Para ver: currículo público › botão **"English"**, no alto à direita; no
+editor, clicar no idioma mostra uma prévia antes de enviar (manual do CNPq, 2026).
+
+- Traduzidos automaticamente: módulos, submódulos e rótulos fixos (nível de formação, grande
+  área, natureza da atividade, situação e natureza do projeto, habilidades em idiomas, tipo de
+  orientação).
+- **Não** traduz o que a pessoa escreveu: títulos, resumo, descrições. Onde a tela tem campo
+  em inglês (aba "Traduções"), escreva o texto; "repetir os textos já informados" só copia o
+  português. Item cadastrado por DOI não permite tradução.
+- Nomes próprios de novas áreas criadas pela pessoa também não são traduzidos.
+- Para estudante que vai ao exterior: preencha "Traduções" dos itens principais (formação,
+  vínculo de IC, projeto, produções) e confira a versão "English" depois do envio. Se a
+  instituição de destino pedir um CV em inglês à parte, monte-o a partir do Lattes.
 
 ## Prévia antes de enviar
 

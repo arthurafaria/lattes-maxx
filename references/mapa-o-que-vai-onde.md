@@ -37,6 +37,7 @@ comum.
 | Representação discente, centro acadêmico | Atuação: Conselhos, comissões e consultoria / Direção e administração | idem |
 | Emprego | Atuação: vínculo Celetista/Servidor/Outro na empresa | idem |
 | Voluntariado | Atuação: vínculo Outro na entidade | idem |
+| Duas bolsas ao mesmo tempo; mudança de orientador/projeto; bolsa que terminou; auxílio ou ProUni | Ver "Bolsas: casos frequentes" | atuacao-vinculos-e-atividades.md |
 | Prêmio, menção honrosa, medalha | Dados gerais › Prêmios e títulos | dados-gerais-e-resumo.md |
 | O que não cabe em lugar nenhum | Dados gerais › Outras informações relevantes (até 2.000 caracteres) | dados-gerais-e-resumo.md |
 
@@ -69,6 +70,8 @@ comum.
 | Fotografia, exposição | Artística › Artes visuais | comunicacao-e-artes.md |
 | Design, campanha | Técnica › Outra produção técnica (ou Trabalhos técnicos) | comunicacao-e-artes.md |
 | Software registrado, patente, marca | Patentes e registros | producoes.md |
+| Preprint, resenha, artigo com centenas de autores | Sem regra no manual do CNPq: ver "Casos sem regra" | producoes.md |
+| Recital, composição, disco, concerto | Artística › Música | producoes.md |
 
 ## Eventos
 

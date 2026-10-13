@@ -7,7 +7,8 @@ Uso:
 Como obter o arquivo: no editor do Lattes, use "Gerar arquivo para visualização
 e conferência" (menu lateral) e salve a página aberta (Cmd/Ctrl + S, "Página da
 Web, somente HTML"). Também funciona com a página pública do currículo salva em
-HTML ou com um .txt copiado da página.
+HTML, com um .txt copiado da página e, se o programa `pdftotext` estiver
+instalado, com um PDF.
 
 O script só usa a biblioteca padrão do Python 3.8+ e não envia nada para a
 internet. Ele aponta problemas prováveis; quem decide é a pessoa dona do
@@ -17,11 +18,15 @@ currículo.
 from __future__ import annotations
 
 import argparse
+import calendar
 import difflib
 import json
 import re
+import shutil
+import subprocess
 import sys
 import unicodedata
+from datetime import date, datetime
 from html.parser import HTMLParser
 from pathlib import Path
 
@@ -92,8 +97,32 @@ class _Linearizer(HTMLParser):
             self.resumo_parts.append(data)
 
 
+class ArquivoInvalido(Exception):
+    """Arquivo que o revisor não consegue ler (mensagem pronta para a pessoa)."""
+
+
+def pdf_to_text(path: Path) -> str:
+    exe = shutil.which("pdftotext")
+    if not exe:
+        raise ArquivoInvalido(
+            "Este arquivo é um PDF e o programa «pdftotext» não está instalado. "
+            "Salve a prévia como HTML (Cmd/Ctrl + S › «Página da Web, somente HTML»), "
+            "copie o texto da página para um arquivo .txt ou instale o pdftotext "
+            "(macOS: brew install poppler)."
+        )
+    res = subprocess.run([exe, "-enc", "UTF-8", str(path), "-"],
+                         capture_output=True, text=True, encoding="utf-8", errors="replace")
+    if res.returncode != 0 or not res.stdout.strip():
+        raise ArquivoInvalido("Não consegui extrair texto deste PDF (pode ser só imagem). "
+                              "Salve a prévia como HTML ou copie o texto para um .txt.")
+    return res.stdout
+
+
 def read_text(path: Path) -> tuple[list[str], str]:
     raw = path.read_bytes()
+    if raw[:5] == b"%PDF-" or path.suffix.lower() == ".pdf":
+        lines = [normalize_space(l) for l in pdf_to_text(path).splitlines()]
+        return [l for l in lines if l], ""
     match = re.search(rb'charset=["\']?([A-Za-z0-9_\-]+)', raw[:4000])
     encodings = []
     if match:
@@ -217,6 +246,40 @@ def sentences(text: str) -> list[str]:
     return [p.strip() for p in parts if len(p.strip()) > 25]
 
 
+def _fim_do_mes(mes: int, ano: int) -> date | None:
+    try:
+        return date(ano, mes, calendar.monthrange(ano, mes)[1])
+    except ValueError:
+        return None
+
+
+def datas_no_texto(texto: str) -> list[date]:
+    """Datas «dd/mm/aaaa» e «mm/aaaa» (esta, no último dia do mês)."""
+    achadas: list[date] = []
+    for d, m, a in re.findall(r"(?<![\d/])(\d{2})/(\d{2})/(\d{4})\b", texto):
+        try:
+            achadas.append(date(int(a), int(m), int(d)))
+        except ValueError:
+            pass
+    sem_completas = re.sub(r"\d{2}/\d{2}/\d{4}", " ", texto)
+    for m, a in re.findall(r"(?<![\d/])(\d{2})/(\d{4})\b", sem_completas):
+        fim = _fim_do_mes(int(m), int(a))
+        if fim:
+            achadas.append(fim)
+    return achadas
+
+
+def data_de_referencia(rep: "Report") -> date:
+    for chave in ("previa_gerada_em", "ultima_atualizacao"):
+        valor = rep.facts.get(chave)
+        if valor:
+            try:
+                return datetime.strptime(valor, "%d/%m/%Y").date()
+            except ValueError:
+                pass
+    return date.today()
+
+
 def check_header(lines, rep: Report):
     joined = " ".join(lines[:80])
     m = re.search(r"Última atualização do currículo em (\d{2}/\d{2}/\d{4})", joined)
@@ -246,9 +309,17 @@ def citation_names(sections) -> list[str]:
 
 def check_resumo(resumo: str, lines, sections, rep: Report):
     if not resumo:
-        # tenta achar o texto longo no cabeçalho
-        candidates = [l for l in sections.get("_cabecalho", []) if len(l) > 300]
-        resumo = candidates[0] if candidates else ""
+        # .txt e PDF não marcam o resumo: ele é o texto depois de «Última atualização…»
+        # (em PDF as linhas vêm quebradas, então junta todas até a primeira seção).
+        cab = sections.get("_cabecalho", [])
+        inicio = next((i + 1 for i, l in enumerate(cab)
+                       if fold(l).startswith("ultima atualizacao do curriculo")), None)
+        if inicio is not None:
+            resumo = normalize_space(" ".join(cab[inicio:]))
+            resumo = re.sub(r"\s*\(Texto informado pelo autor\)\s*$", "", resumo)
+        if not resumo:
+            candidates = [l for l in cab if len(l) > 300]
+            resumo = candidates[0] if candidates else ""
     rep.facts["resumo_caracteres"] = len(resumo)
     if not resumo:
         rep.add("ATENÇÃO", "Resumo", "Não encontrei o texto inicial (resumo) do currículo.",
@@ -366,6 +437,20 @@ def check_atuacao(sections, rep: Report):
         else:
             seen[key] = ini
 
+    # monitoria ou estágio cadastrados com a natureza «Outro»
+    for idx, line in enumerate(atu):
+        if re.match(r"^(\d{2}/)?\d{4} - (Atual|(\d{2}/)?\d{4})\s+Outro\b", line, re.I):
+            perto = fold(" ".join(atu[idx:idx + 4]))
+            if "monitor" in perto:
+                rep.add("ATENÇÃO", "Atuação",
+                        "Monitoria cadastrada como atividade de natureza «Outro».",
+                        "Monitoria é atividade de Ensino: edite e escolha a natureza «Ensino» "
+                        "(«Monitoria da disciplina X, sob orientação de Y»).", line)
+            elif "estagi" in perto:
+                rep.add("ATENÇÃO", "Atuação",
+                        "Estágio cadastrado como atividade de natureza «Outro».",
+                        "Use a natureza «Estágio».", line)
+
     # linhas de pesquisa que parecem nome de grupo
     pool = linhas + [l for l in atu if l.startswith("Linhas de pesquisa")]
     for line in pool:
@@ -382,6 +467,32 @@ def check_atuacao(sections, rep: Report):
         for m in ORDINAL_LOST.finditer(line):
             rep.add("INFO", "Atuação", f"Possível «º» perdido em «{m.group(0)}».",
                     "O Lattes às vezes remove «º»/«ª»; reescreva sem o símbolo.", line)
+
+
+def check_vigencias(sections, rep: Report):
+    """Vínculo «Atual» cuja vigência, descrita em «Outras informações», já terminou."""
+    atu = sections.get("Atuação profissional", [])
+    ref = data_de_referencia(rep)
+    for idx, line in enumerate(atu):
+        if not re.match(r"^\d{4} - Atual\s+Vínculo:", line):
+            continue
+        bloco = []
+        j = idx + 1
+        while j < len(atu) and not re.match(r"^((\d{2}/)?\d{4})( - |\s)", atu[j]) \
+                and fold(atu[j]) != "atividades":
+            bloco.append(atu[j])
+            j += 1
+        texto = " ".join(bloco)
+        if "vigenc" not in fold(texto):
+            continue
+        datas = datas_no_texto(texto)
+        if datas and max(datas) < ref:
+            rep.add("ATENÇÃO", "Atuação",
+                    f"A vigência descrita termina em {max(datas):%d/%m/%Y}, mas o vínculo "
+                    "continua «Atual».",
+                    "Se a bolsa foi renovada, acrescente a nova vigência em «Outras "
+                    "informações»; se terminou, ponha o mês de fim no vínculo e na atividade "
+                    "(e use o passado no resumo).", line)
 
 
 def check_projetos(sections, rep: Report):
@@ -405,14 +516,60 @@ PRODUCTION_SECTIONS = ("Produção", "Produções", "Produção bibliográfica",
                        "Educação e Popularização de C & T", "Educação e Popularização de C&T")
 
 
+SUBSECAO = re.compile(
+    r"^(artigos? (completos|aceitos)|livros|capitulos|textos? em jornais?|trabalhos "
+    r"(completos )?publicados|resumos|apresentac|demais|outras? producoes|programa de "
+    r"computador|redes sociais|relatorio)")
+PREPRINT = re.compile(r"preprint|pre-print|arxiv|biorxiv|medrxiv|ssrn|research ?square|osf\.io",
+                      re.IGNORECASE)
+
+
+def check_artigos(items_sub, rep: Report):
+    aceitos, completos = [], []
+    for sec, sub, text in items_sub:
+        fs = fold(sub)
+        eh_aceito = fs.startswith("artigos aceitos")
+        eh_completo = fs.startswith("artigos completos")
+        if eh_aceito:
+            aceitos.append(text)
+            if re.search(r"\bdoi\b|10\.\d{4,9}/|\bv\.\s?\d|\bp\.\s?\d", text, re.I):
+                rep.add("ATENÇÃO", sec,
+                        "Artigo em «aceitos» já traz dados de publicação (DOI, volume ou páginas).",
+                        "Se já saiu, exclua este item e cadastre em «Artigos completos» pelo DOI.",
+                        text)
+            if re.search(r"submetid|em avaliac|under review|em revisao", fold(text)):
+                rep.add("ERRO", sec, "Artigo apenas submetido cadastrado como aceito.",
+                        "Submetido ou em avaliação não entra no Lattes; só com carta de aceite.",
+                        text)
+        if eh_completo:
+            completos.append(text)
+        if (eh_aceito or eh_completo) and PREPRINT.search(text):
+            rep.add("ATENÇÃO", sec, "Parece um preprint cadastrado como artigo.",
+                    "Preprint não é artigo publicado nem aceito. Confirme com o orientador ou "
+                    "o programa onde registrar (ver references/producoes.md).", text)
+    for a in aceitos:
+        for c in completos:
+            ta, tc = fold(a)[:120], fold(c)[:120]
+            if len(ta) > 20 and difflib.SequenceMatcher(None, ta, tc).ratio() > 0.85:
+                rep.add("ATENÇÃO", "Produção bibliográfica",
+                        "O mesmo artigo está em «aceitos» e em «completos».",
+                        "Exclua o item de «Artigos aceitos»: ele já foi publicado.", a)
+
+
 def check_producoes(sections, names, rep: Report):
     items = []
+    items_sub = []
     for sec in PRODUCTION_SECTIONS:
+        sub = ""
         for line in sections.get(sec, []):
             m = ITEM_NUMBER.match(line)
             if m and len(m.group(2)) > 15:
                 items.append((sec, m.group(2)))
+                items_sub.append((sec, sub, m.group(2)))
+            elif not m and len(line) < 110 and SUBSECAO.match(fold(line)):
+                sub = line
     rep.facts["itens_de_producao"] = len(items)
+    check_artigos(items_sub, rep)
 
     folded_names = [fold(n) for n in names]
     if folded_names:
@@ -431,6 +588,9 @@ def check_producoes(sections, names, rep: Report):
 
     for i in range(len(items)):
         for j in range(i + 1, len(items)):
+            subs = {fold(items_sub[i][1])[:15], fold(items_sub[j][1])[:15]}
+            if subs == {"artigos aceitos", "artigos complet"}:
+                continue
             a, b = title_of(items[i][1]), title_of(items[j][1])
             if len(a) > 20 and difflib.SequenceMatcher(None, a, b).ratio() > 0.9:
                 rep.add("ATENÇÃO", "Produções", "Dois itens parecem ser o mesmo trabalho.",
@@ -456,14 +616,29 @@ def check_producoes(sections, names, rep: Report):
 def run(path: Path) -> Report:
     lines, resumo = read_text(path)
     sections = split_sections(lines)
+    encontradas = [k for k in sections if not k.startswith("_")]
+    if len(encontradas) < 2:
+        raise ArquivoInvalido(
+            "Este arquivo não parece ser a prévia nem a página de um Currículo Lattes: "
+            f"achei {len(encontradas)} seção(ões) conhecida(s) (como «Formação "
+            "acadêmica/titulação» e «Atuação profissional»). Confira se salvou a página "
+            "certa («Gerar arquivo para visualização e conferência») e se o arquivo é "
+            "HTML, .txt ou PDF com texto.")
     rep = Report()
-    rep.facts["secoes_encontradas"] = [k for k in sections if not k.startswith("_")]
+    rep.facts["secoes_encontradas"] = encontradas
     names = citation_names(sections)
     rep.facts["nomes_em_citacoes"] = names
     check_header(lines, rep)
+    with path.open("rb") as fh:
+        if fh.read(5) == b"%PDF-":
+            rep.add("INFO", "Arquivo",
+                    "A leitura de PDF é aproximada: o texto quebra em linhas e os itens de "
+                    "produção podem não ser contados.",
+                    "Para uma revisão completa, salve a prévia como HTML (Cmd/Ctrl + S).")
     check_resumo(resumo, lines, sections, rep)
     check_formacao(sections, rep)
     check_atuacao(sections, rep)
+    check_vigencias(sections, rep)
     check_projetos(sections, rep)
     check_producoes(sections, names, rep)
     if not names:
@@ -487,6 +662,9 @@ def to_markdown(rep: Report) -> str:
     out.append(f"- Seções encontradas: {', '.join(f.get('secoes_encontradas', []))}")
     out.append(f"- Resumo: {f.get('resumo_caracteres', 0)} caracteres")
     out.append(f"- Itens de produção numerados: {f.get('itens_de_producao', 0)}")
+    cont = {n: sum(1 for i in rep.items if i["nivel"] == n) for n in order}
+    out.append(f"- Resultado: {cont['ERRO']} erro(s), {cont['ATENÇÃO']} atenção(ões), "
+               f"{cont['INFO']} informação(ões)")
     out.append("")
     if not rep.items:
         out.append("Nenhum problema automático encontrado. Ainda vale uma leitura humana.")
@@ -514,7 +692,18 @@ def main(argv=None) -> int:
     if not args.arquivo.exists():
         print(f"Arquivo não encontrado: {args.arquivo}", file=sys.stderr)
         return 2
-    rep = run(args.arquivo)
+    if args.arquivo.is_dir():
+        print(f"{args.arquivo} é uma pasta. Indique o arquivo da prévia (.html, .txt ou .pdf).",
+              file=sys.stderr)
+        return 2
+    try:
+        rep = run(args.arquivo)
+    except ArquivoInvalido as exc:
+        print(exc, file=sys.stderr)
+        return 3
+    except OSError as exc:
+        print(f"Não consegui ler o arquivo: {exc}", file=sys.stderr)
+        return 2
     if args.json:
         print(json.dumps({"fatos": rep.facts, "pontos": rep.items}, ensure_ascii=False, indent=2))
     else:
