@@ -1,0 +1,58 @@
+{
+  "skill_name": "lattes-maxx",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "oi! sou do 5º período de jornalismo na UFPE e ganhei bolsa PIBIC do CNPq em agosto/2026, com a profa. Helena Duarte, no projeto 'Desinformação em podcasts de saúde'. em outubro apresentei um pôster no Congresso de Iniciação Científica da UFPE e o resumo saiu no caderno de resumos (tem ISBN). também dei uma entrevista pra TV Universitária sobre a pesquisa. nunca mexi no lattes direito, só tenho o cadastro com o ensino médio. me diz o que colocar e onde, campo por campo",
+      "expected_output": "Mapa do que vai onde (graduação em andamento, vínculo Bolsista + atividade P&D, projeto real com CNPq natureza Bolsa, resumo em anais + apresentação/participação, entrevista em Entrevistas/programas na mídia), campos e textos prontos, resumo do currículo, lembrete de Enviar ao CNPq.",
+      "files": [],
+      "assertions": [
+        "IC registrada como vínculo 'Bolsista' em Atuação profissional (e não em Formação complementar)",
+        "Recomenda cadastrar o projeto real em Projetos, com a orientadora como coordenadora e CNPq com natureza 'Bolsa'",
+        "Resumo do caderno com ISBN vai em 'Trabalhos publicados em anais de eventos' (natureza Resumo)",
+        "Entrevista na TV vai em 'Entrevistas, mesas redondas, programas e comentários na mídia'",
+        "Graduação cadastrada como em andamento em Formação acadêmica",
+        "Avisa que é preciso 'Enviar ao CNPq' (salvar não publica)",
+        "Entrega texto pronto para o resumo (Texto inicial) do currículo",
+        "Não marca a graduação como financiada pela bolsa PIBIC em 'Com bolsa?'"
+      ]
+    },
+    {
+      "id": 2,
+      "prompt": "Sou mestranda no PPGCOM da UFMG desde março/2025 com bolsa CAPES, orientadora Profa. Dra. Lúcia Prado. Tenho um artigo aceito na revista Galáxia (recebi a carta de aceite semana passada, ainda sem DOI) e fiz estágio docência em 2025.2 na disciplina Teorias da Comunicação. A secretaria pediu Lattes atualizado até sexta por causa da Sucupira. O que eu preciso cadastrar e como? Coloco o Qualis da revista?",
+      "expected_output": "Mestrado em andamento em Formação com orientadora e bolsa CAPES (curso/orientadora pela lupa), vínculo Bolsista opcional/comum, artigo em Artigos aceitos (mover quando publicar), estágio docência em Atividades › Ensino, Qualis não é campo do Lattes, envio ao CNPq antes do prazo, ORCID/nome em citações.",
+      "files": [],
+      "assertions": [
+        "Mestrado em andamento em Formação com orientadora e bolsa CAPES ('Com bolsa?')",
+        "Artigo vai em 'Artigos aceitos para publicação' e deve ser movido para Artigos completos quando publicado",
+        "Diz que Qualis não é campo do Lattes / não deve ser escrito",
+        "Estágio docência em Atuação profissional › Atividades › Ensino",
+        "Lembra de enviar ao CNPq antes do prazo",
+        "Menciona ORCID ou nome em citações bibliográficas",
+        "Ao publicar, orienta excluir o item de 'aceitos' e cadastrar em 'Artigos completos' (sem prometer função de mover)"
+      ]
+    },
+    {
+      "id": 3,
+      "prompt": "Gerei a prévia do meu Lattes e salvei o HTML (previa_com_erros.html, anexo). Pode revisar antes de eu mandar pro CNPq?",
+      "expected_output": "Revisão priorizada apontando: PIBIC descrito como extensão, frases repetidas e erros no resumo, IC em Formação complementar, graduação sem 'em andamento', laboratório como instituição, grupo como linha de pesquisa, atividades duplicadas, falta de projeto, item sem o nome da pessoa, texto duplicado, http:// repetido; com caminho de correção.",
+      "files": [
+        "tests/fixtures/previa_com_erros.html"
+      ],
+      "assertions": [
+        "Aponta que PIBIC foi descrito como bolsa de extensão",
+        "Aponta IC/PIBIC cadastrada em Formação complementar",
+        "Aponta laboratório cadastrado como instituição em Atuação profissional",
+        "Aponta nome de grupo usado como linha de pesquisa",
+        "Aponta ausência de projeto de pesquisa apesar da bolsa",
+        "Aponta o texto em jornal duplicado",
+        "Aponta link com http:// repetido",
+        "Aponta graduação sem 'em andamento'",
+        "Aponta item (site) em que a pessoa não aparece entre os autores",
+        "Aponta atividades de Pesquisa e desenvolvimento duplicadas",
+        "Orienta digitar o link sem 'http://' (o Lattes acrescenta)",
+        "Na correção, evita ordinais «º/ª» que o Lattes apaga"
+      ]
+    }
+  ]
+}
