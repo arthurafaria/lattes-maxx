@@ -1,0 +1,26 @@
+{
+  "status": "ok",
+  "message": {
+    "DOI": "10.5555/rep.2026.001",
+    "type": "journal-article",
+    "title": ["Ansiedade e rotina de estudo em <i>universitários</i>"],
+    "subtitle": ["um estudo longitudinal"],
+    "container-title": ["Revista Exemplo de Psicologia"],
+    "ISSN": ["1234-5678", "8765-4321"],
+    "issn-type": [{"value": "1234-5678", "type": "print"}, {"value": "8765-4321", "type": "electronic"}],
+    "volume": "12",
+    "issue": "3",
+    "page": "101-115",
+    "language": "pt",
+    "publisher": "Editora Exemplo",
+    "issued": {"date-parts": [[2026, 3]]},
+    "published-online": {"date-parts": [[2025, 12, 20]]},
+    "published-print": {"date-parts": [[2026, 3]]},
+    "resource": {"primary": {"URL": "https://revista.exemplo.org/artigo/001"}},
+    "author": [
+      {"given": "Paulo", "family": "Modelo", "sequence": "first", "ORCID": "http://orcid.org/0000-0000-0000-0001"},
+      {"given": "Carla Teste", "family": "de Almeida", "sequence": "additional"},
+      {"given": "João Pedro", "family": "Silva Neto", "sequence": "additional"}
+    ]
+  }
+}

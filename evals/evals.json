@@ -142,6 +142,46 @@
         "Explica como criar o Lattes (portal › 'Cadastrar novo currículo'; CPF, nome da mãe, Ensino Médio concluído)",
         "Escreve o prêmio por extenso ('segundo lugar'), sem 'º'"
       ]
+    },
+    {
+      "id": 11,
+      "prompt": "tenho esse artigo: DOI 10.1590/1678-4685-GMB-2019-0001. me diz como coloco no lattes, passo a passo",
+      "files": [],
+      "expected_output": "Sem acesso para consultar o DOI, não inventa título, autores nem revista: pede o PDF ou a referência; já dá o passo a passo geral do cadastro por DOI.",
+      "assertions": [
+        "Não inventa título, autores, revista, ano nem outros metadados do artigo",
+        "Pede o PDF, a referência completa ou um print da página do artigo para conferir os dados",
+        "Dá o caminho: Produções › Produção bibliográfica › Artigos completos publicados em periódicos › Incluir novo item",
+        "Orienta digitar o DOI a partir de '10.', sem 'https://doi.org/', e conferir os campos preenchidos",
+        "Explica a aba Autores: todos, na ordem do artigo, com a pessoa incluída",
+        "Avisa que salvar não publica e que é preciso Enviar ao CNPq"
+      ]
+    },
+    {
+      "id": 12,
+      "prompt": "o lattes não achou o DOI do meu artigo (saiu semana passada na Revista Brasileira de Educação). e se eu não tiver DOI, como faço? me dá o passo a passo",
+      "files": [],
+      "expected_output": "Cadastro à mão pelo ISSN ou nome do periódico (lupa), copiando do PDF; cuidado com o ISSN da versão certa; sem inventar dados.",
+      "assertions": [
+        "Orienta usar o ISSN ou o nome do periódico (lupa) na primeira tela em vez do DOI",
+        "Diz que o ISSN deve ser o da versão certa (impresso ou eletrônico) e que não se cria periódico novo se já existir",
+        "Manda copiar título, ano, volume, fascículo e páginas do PDF publicado, sem inventar",
+        "Menciona Dados gerais, Detalhamento e Autores",
+        "Avisa que item cadastrado à mão aceita a aba Traduções (o por DOI não)"
+      ]
+    },
+    {
+      "id": 13,
+      "prompt": "tenho 4 artigos pra cadastrar: 2 publicados com DOI (meu orientador é coautor nos dois e já colocou no lattes dele), 1 aceito sem DOI e 1 só submetido. como faço?",
+      "files": [],
+      "expected_output": "Publicados: importar do coautor (Importação de produção) ou pelo DOI; aceito em Artigos aceitos; submetido não entra; tabela-resumo e um por vez.",
+      "assertions": [
+        "Sugere 'Importação de produção' (o coautor autoriza em 'Autores citados no currículo') para os dois publicados, ou cadastro pelo DOI",
+        "Coloca o aceito em Artigos aceitos para publicação",
+        "Diz que o submetido não entra como produção",
+        "Apresenta uma tabela-resumo dos quatro artigos e guia um de cada vez",
+        "Menciona que título, DOI e autores precisam bater com o Lattes do orientador"
+      ]
     }
   ]
 }

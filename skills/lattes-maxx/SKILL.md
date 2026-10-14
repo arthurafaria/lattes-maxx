@@ -1,9 +1,9 @@
 ---
 name: lattes-maxx
-description: Preenche, atualiza e revisa o Currículo Lattes (CNPq). Invoque sempre que a pessoa mencionar Lattes, CNPq, DGP, Sucupira ou "Brazilian Lattes CV", perguntar onde algo vai no Lattes, ou mandar certificados, termos de outorga, prints ou vídeos do Lattes — mesmo sem citar a skill.
+description: Preenche, atualiza e revisa o Currículo Lattes (CNPq). Invoque sempre que a pessoa mencionar Lattes, CNPq, DGP, Sucupira ou "Brazilian Lattes CV", perguntar onde algo vai no Lattes, ou mandar certificados, termos de outorga, DOI ou PDF de artigo, prints ou vídeos do Lattes — mesmo sem citar a skill.
 license: MIT
 metadata:
-  version: "1.1.2"
+  version: "1.2.0"
   language: "pt-BR"
   verified: "2026-10"
   repository: "https://github.com/arthurafaria/lattes-maxx"
@@ -58,6 +58,37 @@ scripts de revisão, use o repositório (seção "Material completo e scripts").
   registros · Inovação · Educação e popularização de C&T · Eventos · Orientações · Bancas ·
   Citações. **Projetos é módulo próprio**, não fica dentro de Atuação.
 
+## Artigo por DOI ou PDF: ficha e passo a passo
+
+Se a pessoa mandar um **DOI**, o **PDF** de um artigo ou os dois, entregue uma **ficha** e o
+**passo a passo** do cadastro (detalhes em `references/artigo-por-doi-ou-pdf.md`):
+
+1. **Dados**: com terminal e internet, rode
+   `node ~/.lattes-maxx/scripts/extrair_artigo.ts DOI_OU_PDF --eu "Nome completo"`
+   (`--previa PREVIA.html` diz se já está no Lattes; só o DOI vai à Crossref, o PDF fica no
+   computador). Sem terminal, leia o PDF anexado: título, autores na ordem, periódico, ISSN,
+   ano, volume, páginas, DOI. **Só DOI e sem como consultá-lo: não invente** título, autores
+   nem revista; peça o PDF ou a referência completa.
+2. **Confira com o PDF publicado**: título, ordem dos autores (com a pessoa entre eles), ano do
+   fascículo, ISSN da versão certa. Um PDF pode citar DOIs de outros trabalhos. Vale o PDF.
+3. **Classifique**: publicado › Artigos completos; carta de aceite › Artigos aceitos; submetido ›
+   não entra; preprint › sem regra no manual (tabela abaixo); anais, capítulo, livro e tese
+   têm outro lugar.
+4. **Já está no Lattes?** Se um coautor (o orientador) já cadastrou, use "Importação de
+   produção" em vez de digitar.
+5. **Ficha**: tabela "Campo | Valor" (DOI, título, ano, idioma, meio de divulgação, home page
+   sem "http://", periódico e ISSN, volume, fascículo, páginas) + autores numerados com a
+   pessoa marcada e "Nome como citado" (SOBRENOME, N. N.) + avisos.
+6. **Passo a passo**: portal › "Atualizar currículo" › Produções › Produção bibliográfica ›
+   Artigos completos publicados em periódicos › "Incluir novo item" › cole o DOI a partir de
+   "10." e clique em outro campo (o Lattes preenche) › confira cada campo com a ficha (Dados
+   gerais e Detalhamento) › aba Autores (todos, na ordem; "Listar todos" ou "Incluir novo";
+   "Identificar co-autor") › Salvar (o Excluir fica ao lado) › no fim, Enviar. Item por DOI não
+   tem "Traduções". **Sem DOI, ou DOI que o Lattes não acha**: na primeira tela use o ISSN ou o
+   nome do periódico (lupa) e preencha à mão, copiando do PDF.
+
+Vários artigos: uma ficha por artigo, uma tabela-resumo no início, cadastro um por vez.
+
 ## Onde vai cada coisa
 
 **Lógica geral (ajuda do CNPq)**: em Atuação profissional, a **instituição** diz *onde*
@@ -86,7 +117,7 @@ atividade técnico-científica.
 | Recital, composição, disco, concerto | Produção artística/cultural › **Música** (um item por obra ou disco) |
 | Grupo de pesquisa | Só o **líder** inclui no DGP. No Lattes não há campo de grupo: atividade Pesquisa e desenvolvimento com a **mesma linha do DGP** + frase no resumo. Linha é tema, nunca o nome do grupo |
 | Artigo publicado / aceito / submetido | Artigos completos (pelo DOI, a partir de "10.") / Artigos aceitos (excluir e recadastrar como publicado quando sair) / não entra |
-| Artigo sem DOI, ou DOI que o Lattes não acha | Cadastre à mão: periódico e ISSN pela lupa, título, volume e páginas do PDF. Item à mão aceita "Traduções" |
+| Artigo sem DOI, ou DOI que o Lattes não acha | Cadastre à mão: periódico e ISSN pela lupa (ISSN da versão certa; não crie periódico novo se já existir), título, volume e páginas do PDF. Item à mão aceita "Traduções" |
 | Preprint, resenha, artigo com centenas de autores | O manual do CNPq não trata. **Preprint não é artigo publicado nem aceito** (e, se for a versão prévia de um artigo já cadastrado, não duplique). Resenha: Outra produção bibliográfica, ou Texto em jornal ou revista se saiu em veículo jornalístico. Diga que não há regra oficial, dê a opção mais coerente e mande confirmar com o orientador ou programa |
 | Livro, capítulo, organização | Livros e capítulos (ISBN) |
 | Matéria, reportagem, coluna | Texto em jornal ou revista |
@@ -191,9 +222,9 @@ o que está certo › problemas por prioridade, com caminho para corrigir › te
 ## Material completo e scripts
 
 O repositório https://github.com/arthurafaria/lattes-maxx tem referências campo a campo
-(`references/`), modelos de texto (`assets/modelos-de-texto.md`) e scripts em Python 3 sem
-dependências (`scripts/`). Use quando precisar de mais detalhe que este arquivo, de revisar uma
-prévia em HTML ou de ler um vídeo de tela.
+(`references/`), modelos de texto (`assets/modelos-de-texto.md`) e scripts em TypeScript
+(`scripts/`). Use quando precisar de mais detalhe que este arquivo, de revisar uma prévia em
+HTML, de montar a ficha de um artigo ou de ler um vídeo de tela.
 
 Se você pode executar comandos, clone (ou atualize) o repositório numa pasta e use o que
 precisar:
@@ -203,20 +234,24 @@ git clone --depth 1 https://github.com/arthurafaria/lattes-maxx ~/.lattes-maxx 2
 ```
 
 Sem git, baixe e descompacte
-https://github.com/arthurafaria/lattes-maxx/archive/refs/heads/main.zip. No Windows, use
-`python` (ou `py`) no lugar de `python3`.
+https://github.com/arthurafaria/lattes-maxx/archive/refs/heads/main.zip.
+
+Os scripts rodam no Node.js 22.18 ou mais novo, sem instalar pacotes (`node -v` mostra a
+versão; o erro «Unknown file extension ".ts"» significa Node antigo).
 
 Depois:
-- `python3 ~/.lattes-maxx/scripts/revisar_previa.py PREVIA.html` — revisão automática da
+- `node ~/.lattes-maxx/scripts/revisar_previa.ts PREVIA.html` — revisão automática da
   prévia salva em HTML (também lê .txt e PDF, este de forma aproximada e com `pdftotext`).
   Confirme cada ponto antes de recomendar.
-- `python3 ~/.lattes-maxx/scripts/extrair_quadros.py VIDEO.mp4` — quadros de um vídeo de tela
+- `node ~/.lattes-maxx/scripts/extrair_artigo.ts DOI_OU_PDF --eu "Nome"` — ficha do artigo
+  e passo a passo (seção "Artigo por DOI ou PDF").
+- `node ~/.lattes-maxx/scripts/extrair_quadros.ts VIDEO.mp4` — quadros de um vídeo de tela
   (precisa de ffmpeg).
 - Leia a referência do assunto: `references/mapa-o-que-vai-onde.md` (índice geral),
   `atuacao-vinculos-e-atividades.md`, `formacao.md`, `projetos.md`, `producoes.md`,
-  `eventos.md`, `grupos-de-pesquisa-dgp.md`, `pos-graduacao.md`, `comunicacao-e-artes.md`,
-  `integridade-e-autoria.md`, `revisao-da-previa.md`, `dados-gerais-e-resumo.md`,
-  `acesso-e-envio.md`, `fontes-e-normas.md`.
+  `artigo-por-doi-ou-pdf.md`, `eventos.md`, `grupos-de-pesquisa-dgp.md`, `pos-graduacao.md`,
+  `comunicacao-e-artes.md`, `integridade-e-autoria.md`, `revisao-da-previa.md`,
+  `dados-gerais-e-resumo.md`, `acesso-e-envio.md`, `fontes-e-normas.md`.
 
 Se não puder executar comandos nem acessar a internet, siga só este arquivo e peça prints.
 

@@ -12,10 +12,11 @@ página (Cmd/Ctrl + S, "Página da Web, somente HTML") ou imprimir em PDF (Cmd/C
 ## Revisão automática (se você puder executar código)
 
 ```
-python3 scripts/revisar_previa.py CAMINHO/DA/PREVIA.html
+node scripts/revisar_previa.ts CAMINHO/DA/PREVIA.html
 ```
 
-No Windows use `python` (ou `py`) no lugar de `python3`. O script também lê `.txt` e PDF (o PDF
+Precisa do Node.js 22.18 ou mais novo (`node -v`; o erro «Unknown file extension ".ts"» é
+Node antigo). O script também lê `.txt` e PDF (o PDF
 precisa do `pdftotext`; a leitura é aproximada, prefira o HTML). Arquivo que não seja a prévia
 (PDF sem texto, pasta, página qualquer) gera uma mensagem de erro, não um relatório.
 

@@ -1,0 +1,16 @@
+{
+  "status": "ok",
+  "message": {
+    "DOI": "10.5555/outra.2026.e044",
+    "type": "journal-article",
+    "title": ["Relações entre procrastinação e bem-estar"],
+    "container-title": ["Revista Outra de Psicologia"],
+    "ISSN": ["1111-2222"],
+    "issn-type": [{"value": "1111-2222", "type": "electronic"}],
+    "page": "e044",
+    "language": "en",
+    "issued": {"date-parts": [[2026]]},
+    "updated-by": [{"type": "retraction", "label": "Retraction"}],
+    "author": [{"given": "Carla Teste", "family": "Almeida"}]
+  }
+}

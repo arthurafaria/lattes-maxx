@@ -1,0 +1,21 @@
+{
+  "name": "lattes-maxx",
+  "version": "1.2.0",
+  "description": "Skill aberta para preencher, atualizar e revisar o Currículo Lattes (CNPq). Os scripts rodam direto no Node, sem dependências.",
+  "type": "module",
+  "private": true,
+  "license": "MIT",
+  "repository": "github:arthurafaria/lattes-maxx",
+  "engines": {
+    "node": ">=22.18"
+  },
+  "scripts": {
+    "test": "node --test \"tests/*.test.ts\"",
+    "build": "node scripts/build_release.ts",
+    "typecheck": "tsc --noEmit"
+  },
+  "devDependencies": {
+    "@types/node": "^24.0.0",
+    "typescript": "^5.9.0"
+  }
+}

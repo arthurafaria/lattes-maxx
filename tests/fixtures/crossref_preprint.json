@@ -1,0 +1,15 @@
+{
+  "status": "ok",
+  "message": {
+    "DOI": "10.1590/SciELOPreprints.0001",
+    "type": "posted-content",
+    "title": ["SONO E DESEMPENHO ACADÊMICO"],
+    "container-title": [],
+    "issued": {"date-parts": [[2026]]},
+    "resource": {"primary": {"URL": "https://preprints.scielo.org/index.php/scielo/preprint/view/0001"}},
+    "author": [
+      {"given": "Carla Teste", "family": "Almeida", "sequence": "first"},
+      {"name": "Grupo de Estudos do Sono", "sequence": "additional"}
+    ]
+  }
+}

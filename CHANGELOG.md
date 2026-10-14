@@ -1,5 +1,29 @@
 # Changelog
 
+## 1.2.0 — 2026-10
+
+- **Artigo por DOI ou PDF**: a pessoa manda o DOI, o PDF do artigo (ou os dois) e a skill
+  devolve uma **ficha** (campos do formulário, autores na ordem com a pessoa marcada, avisos) e o
+  **passo a passo** do cadastro no Lattes. Nova referência `references/artigo-por-doi-ou-pdf.md`
+  (publicado, sem DOI, aceito, anais, capítulo, vários artigos, erros do Lattes) e seção
+  própria no `SKILL.md`, que também funciona sem terminal (lendo o PDF anexado) e manda não
+  inventar dados quando só há o DOI e nenhum jeito de consultá-lo.
+- Novo script `scripts/extrair_artigo.ts`: acha o DOI no PDF (`pdftotext`), busca os dados na
+  Crossref (DataCite via doi.org para arXiv e afins), confere título e autores com o texto do
+  PDF (evita DOI de outro artigo), classifica (artigo, anais, capítulo, preprint, retratado),
+  marca a pessoa entre os autores (`--eu`), avisa se o artigo já está na prévia (`--previa`) e
+  imprime o passo a passo. Só o DOI vai à rede; o PDF fica no computador. Sem DOI no PDF, busca
+  pelo título e só aceita se o título aparecer no PDF. `--offline` e `--json`.
+- Descrição da skill cita DOI/PDF de artigo; casos de avaliação novos.
+- **Scripts em TypeScript.** `revisar_previa`, `extrair_artigo`, `extrair_quadros` e `build_release`
+  saíram de Python para TypeScript, rodados direto pelo Node.js 22.18+ (sem build, sem
+  dependências em runtime). O comportamento é o mesmo: a saída do revisor e da ficha é idêntica
+  à da versão Python nas fixtures, na prévia real e em DOIs reais. O parser de HTML, a comparação
+  de textos (`SequenceMatcher`) e o escritor de zip, que o Python trazia na biblioteca padrão, foram
+  reescritos em `scripts/comum.ts` e `scripts/build_release.ts`. Testes com `node:test`
+  (`npm test`), tipos estritos (`npm run typecheck`). **Quem usava `python3 scripts/*.py` passa a
+  usar `node scripts/*.ts`.**
+
 ## 1.1.2 — 2026-10
 
 Melhorias vindas de testes de usabilidade com perfis variados de estudante (graduação e pós,
